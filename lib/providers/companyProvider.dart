@@ -5,8 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class CompanyProvider extends ChangeNotifier {
+  bool isLoading = false;
   List<CompanyModel> companyList = [];
   Future getCompanyData(BuildContext context) async {
+    isLoading = true;
+    notifyListeners();
     Dio dio = Dio();
 
     try {
@@ -22,5 +25,7 @@ class CompanyProvider extends ChangeNotifier {
         print(e);
       }
     }
+    isLoading = false;
+    notifyListeners();
   }
 }

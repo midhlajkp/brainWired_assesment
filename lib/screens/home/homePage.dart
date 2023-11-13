@@ -42,15 +42,23 @@ class _HomePageState extends State<HomePage> {
             style: openSansFont(size: size18, fontWeight: fontWeightSemiBold),
           ),
         ),
-        body: ListView.builder(
-          shrinkWrap: true,
-          physics: const BouncingScrollPhysics(),
-          itemCount: companyProvider.companyList.length,
-          itemBuilder: (context, index) => CompanyInfoCard(
-            companyModel: companyProvider.companyList[index],
-            isPressed: isPressedList,
-            index: index,
-          ),
+        body: Stack(
+          children: [
+            ListView.builder(
+              shrinkWrap: true,
+              physics: const BouncingScrollPhysics(),
+              itemCount: companyProvider.companyList.length,
+              itemBuilder: (context, index) => CompanyInfoCard(
+                companyModel: companyProvider.companyList[index],
+                isPressed: isPressedList,
+                index: index,
+              ),
+            ),
+            if (companyProvider.isLoading)
+              const Center(
+                child: CircularProgressIndicator(),
+              )
+          ],
         ));
   }
 }
